@@ -2,7 +2,7 @@
 """
 Created on Mon Apr  1 13:20:38 2024
 
-@author: Winston + Krish
+@author: kvmal
 """
 
 import cv2
@@ -35,13 +35,21 @@ laplace_img = cv2.Laplacian(img, cv2.CV_64F)
 imgplotlap = plt.imshow(laplace_img)
 plt.show()
 
+#actual image processing
 gaussB = cv2.GaussianBlur(img5,(5,5),0)
 edgesB = cv2.Canny(gaussB, 100, 160)
 contours5, hierarchy5 = cv2.findContours(edgesB, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+print(len(contours5))
+area2 = cv2.contourArea(contours5[0])
+perimeter2 = cv2.arcLength(contours5[0], True)
+for(contour in contours5){
+    
+}
 cv2.drawContours(img5, contours5, -1, (0, 255, 0), 2)
 plt.figure(figsize=[10, 10])
 plt.imshow(img5)
 plt.show()
+
 #img processing for watershed method
 gray = cv2.cvtColor(img3,cv2.COLOR_BGR2GRAY)
 imgplot = plt.imshow(gray, cmap='gray')
@@ -55,6 +63,7 @@ plt.show()
 gray_image = img.sum(-1)
 #img processing for second active contour
 gray4 = cv2.cvtColor(img4,cv2.COLOR_BGR2GRAY)
+
 # contours2, hierarchy =
 #Code for contour-finding algorithm --> problems = too many contours drawn
 contours = measure.find_contours(gray_image, 0.8)
@@ -63,7 +72,7 @@ imgplot = plt.imshow(img_try)
 plt.show()
 img_convert = np.unique(img_try)
 
-#Code for snake contour algorithm --> problems = not robust enough
+#Code for snake contour algorithm --> problems = not robust enough/ doesn't work
 s = np.linspace(0, 2*np.pi, 400)
 r = (img_resize[0]/2) + (img_resize[0]/2)*np.sin(s)
 c = (img_resize[1]/2) + (img_resize[1]/2)*np.cos(s)
